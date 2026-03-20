@@ -3,6 +3,7 @@
 #include "../sorting/quick_sort.h"
 #include "../sorting/insertion_sort.h"
 #include "../sorting/bubble_sort.h"
+#include "../sorting/selection_sort.h"
 
 namespace algolib {
 
@@ -10,7 +11,8 @@ enum class SortAlgorithm {
     Merge,
     Quick,
     Insertion,
-    Bubble_Sort
+    Bubble_Sort,
+    Selection_Sort
 };
 
 
@@ -31,6 +33,9 @@ inline void sort(Iterator begin, Iterator end, SortAlgorithm algo = SortAlgorith
             break;
         case SortAlgorithm::Bubble_Sort:
             sorting::bubbleSort(begin, end);
+            break;
+        case SortAlgorithm::Selection_Sort:
+            sorting::selectionSort(begin, end);
             break;
     }
 }
