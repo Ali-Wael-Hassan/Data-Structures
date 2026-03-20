@@ -1,12 +1,14 @@
 #pragma once
 #include "../sorting/merge_sort.h"
 #include "../sorting/quick_sort.h"
+#include "../sorting/insertion_sort.h"
 
 namespace algolib {
 
 enum class SortAlgorithm {
     Merge,
-    Quick
+    Quick,
+    Insertion
 };
 
 
@@ -19,6 +21,8 @@ inline constexpr void sort(T* begin, T* end, SortAlgorithm algo = SortAlgorithm:
         case SortAlgorithm::Quick:
             sorting::quickSort(begin, end - begin);
             break;
+        case SortAlgorithm::Insertion:
+            sorting::insertionSort(begin, end - begin);
     }
 }
 

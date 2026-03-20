@@ -1,7 +1,10 @@
+#pragma once
 #include <cstdlib>
 #include <ctime>
 #include <stack>
 #include <algorithm>
+
+namespace algolib::sorting {
 
 template<typename T>
 inline void quickSortIterative(T* arr, size_t n) {
@@ -41,4 +44,6 @@ inline void quickSortIterative(T* arr, size_t n) {
             if (left < store) stk.push({ left, store });
         }
     }
-} // namespace sorting
+}
+
+}
