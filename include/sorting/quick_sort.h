@@ -6,10 +6,13 @@
 
 namespace algolib::sorting {
 
-template<typename T>
-inline void quickSortIterative(T* arr, size_t n) {
-    if (n <= 1) return;
+template<typename Iterator>
+inline void quickSortIterative(Iterator arr, size_t n) {
+    if (n < 2) return;
 
+    typedef typename std::iterator_traits<Iterator>::value_type T;
+    
+    T* arr = &(*begin);
     std::srand(std::time(nullptr));
 
     struct Range { T* left; T* right; };

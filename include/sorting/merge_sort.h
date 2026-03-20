@@ -15,10 +15,12 @@ inline constexpr void merge(T* in, T* out, T* left, T* mid, T* right) {
     while (r != right) *p++ = *r++;
 }
 
-template<typename T>
-inline void mergeSortIterative(T* arr, size_t n) {
-    if (n <= 1) return;
+template<typename Iterator>
+inline void mergeSortIterative(Iterator begin, size_t n) {
+    if (n < 2) return;
 
+    typedef typename std::iterator_traits<Iterator>::value_type T;
+    T* arr = &(*begin);
     T* buffer = new T[n];
     T* in = arr;
     T* out = buffer;
@@ -28,7 +30,7 @@ inline void mergeSortIterative(T* arr, size_t n) {
             size_t left = i;
             size_t mid = std::min(i + width, n);
             size_t right = std::min(i + 2 * width, n);
-            merge(in, out, left, mid, right);
+            merge(in, out, in + left, in + mid, in + right);
         }
         std::swap(in, out);
     }

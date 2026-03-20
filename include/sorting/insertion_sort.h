@@ -7,18 +7,19 @@
 
 namespace algolib::sorting {
 
-template<typename T>
-inline void insertionSort(T* arr, size_t n) {
-    if (n < 2) return;
+template<typename Iterator>
+inline void insertionSort(Iterator begin, Iterator end) {
+    if (begin == end) return;
 
-    for (size_t i = 1; i < n; ++i) {
-        T key = *(arr + i);
-        T* j = arr + i; 
+    for (Iterator i = begin + 1; i != end; ++i) {
+        auto key = *i;
+        Iterator j = i;
 
-        while (j != arr && *(j - 1) > key) {
+        while (j != begin && *(j - 1) > key) {
             *j = *(j - 1);
             --j;
         }
+        
         *j = key;
     }
 }

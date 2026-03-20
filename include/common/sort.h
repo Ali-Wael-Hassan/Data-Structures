@@ -12,17 +12,21 @@ enum class SortAlgorithm {
 };
 
 
-template<typename T>
-inline constexpr void sort(T* begin, T* end, SortAlgorithm algo = SortAlgorithm::Merge) {
+template<typename Iterator>
+inline void sort(Iterator begin, Iterator end, SortAlgorithm algo = SortAlgorithm::Merge) {
+    size_t n = std::distance(begin, end);
+    if (n < 2) return;
+
     switch (algo) {
         case SortAlgorithm::Merge:
-            sorting::mergeSortIterative(begin, end - begin);
+            sorting::mergeSortIterative(begin, n);
             break;
         case SortAlgorithm::Quick:
-            sorting::quickSort(begin, end - begin);
+            sorting::quickSortIterative(begin, n);
             break;
         case SortAlgorithm::Insertion:
-            sorting::insertionSort(begin, end - begin);
+            sorting::insertionSort(begin, end);
+            break;
     }
 }
 
