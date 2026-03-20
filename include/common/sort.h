@@ -2,13 +2,15 @@
 #include "../sorting/merge_sort.h"
 #include "../sorting/quick_sort.h"
 #include "../sorting/insertion_sort.h"
+#include "../sorting/bubble_sort.h"
 
 namespace algolib {
 
 enum class SortAlgorithm {
     Merge,
     Quick,
-    Insertion
+    Insertion,
+    Bubble_Sort
 };
 
 
@@ -26,6 +28,9 @@ inline void sort(Iterator begin, Iterator end, SortAlgorithm algo = SortAlgorith
             break;
         case SortAlgorithm::Insertion:
             sorting::insertionSort(begin, end);
+            break;
+        case SortAlgorithm::Bubble_Sort:
+            sorting::bubbleSort(begin, end);
             break;
     }
 }

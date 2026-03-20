@@ -3,6 +3,7 @@
 #include <ctime>
 #include <stack>
 #include <algorithm>
+#include <iterator>
 
 namespace algolib::sorting {
 
@@ -11,7 +12,7 @@ inline void quickSortIterative(Iterator arr, size_t n) {
     if (n < 2) return;
 
     typedef typename std::iterator_traits<Iterator>::value_type T;
-    
+
     T* arr = &(*begin);
     std::srand(std::time(nullptr));
 

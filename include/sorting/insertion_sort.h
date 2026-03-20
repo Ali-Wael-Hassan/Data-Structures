@@ -1,8 +1,5 @@
 #pragma once
-#include <cstdlib>
-#include <ctime>
-#include <stack>
-#include <algorithm>
+#include <iterator>
 
 
 namespace algolib::sorting {
