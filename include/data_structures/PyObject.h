@@ -38,6 +38,6 @@ public:
     }
 };
 
-using list = std::vector<object>;
+using pyList = std::vector<object>;
 
 } // namespace algolib
