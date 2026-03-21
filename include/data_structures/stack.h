@@ -1,8 +1,10 @@
 #pragma once
 
+#include "list.h"
+
 namespace algolib {
 
-template<class T, class Storage>
+template<class T, class Storage = list<T>>
 class stack {
 private:
     Storage storage;
