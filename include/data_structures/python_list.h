@@ -21,7 +21,7 @@ public:
     object(T&& value) : data(std::forward<T>(value)) {
         using U = decay_t<T>;
         printer = [](std::ostream& os, const any& storage) {
-            if (U* ptr = storage.try_get<U>())
+            if (const U* ptr = storage.try_get<U>())
                 os << *ptr;
         };
         reader = [](std::istream& is, any& storage) {
@@ -37,7 +37,7 @@ public:
         data.set(std::forward<T>(value));
         using U = decay_t<T>;
         printer = [](std::ostream& os, const any& storage) {
-            if (U* ptr = storage.try_get<U>())
+            if (const U* ptr = storage.try_get<U>())
                 os << *ptr;
         };
         reader = [](std::istream& is, any& storage) {

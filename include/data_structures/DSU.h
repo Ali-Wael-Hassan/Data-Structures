@@ -4,35 +4,36 @@
 
 namespace algolib {
 
+template<typename T = int>
 class DSU {
 private:
-    vector<int> parent, rank, size;
-    int components;
+    vector<T> parent, rank, size;
+    T components;
 
 public:
-    inline explicit DSU(int n)
+    inline explicit DSU(T n)
         : parent(n), rank(n, 0), size(n, 1), components(n)
     {
-        for (int i = 0; i < n; ++i) parent[i] = i;
+        for (T i = 0; i < n; ++i) parent[i] = i;
     }
 
-    inline int find(int x) {
+    inline T find(T x) {
         return parent[x] == x ? x : (parent[x] = find(parent[x]));
     }
 
-    inline bool same(int a, int b) {
+    inline bool same(T a, T b) {
         return find(a) == find(b);
     }
 
-    inline int getSize(int x) {
+    inline T getSize(T x) {
         return size[find(x)];
     }
 
-    inline int count() {
+    inline T count() {
         return components;
     }
 
-    inline int merge(int a, int b) {
+    inline T merge(T a, T b) {
         a = find(a);
         b = find(b);
         if (a == b) return -1;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace algolib {
 
 // remove references
@@ -13,10 +15,41 @@ template<typename T> struct remove_cv<const T>              { using type = T; };
 template<typename T> struct remove_cv<volatile T>           { using type = T; };
 template<typename T> struct remove_cv<const volatile T>     { using type = T; };
 
-// decay type = remove ref + remove cv
-template<typename T>
-using decay_t = typename remove_cv<typename remove_ref<T>::type>::type;
+// checking if array
+template<typename T> struct is_array { static constexpr bool value = false; };
+template<typename T> struct is_array<T[]> { static constexpr bool value = true; };
+template<typename T, unsigned long long N> struct is_array<T[N]> { static constexpr bool value = true; };
 
+template<typename T> struct remove_extent { using type = T; };
+template<typename T> struct remove_extent<T[]> { using type = T; };
+template<typename T, unsigned long long N> struct remove_extent<T[N]> { using type = T; };
+
+template<bool B, typename T, typename F> struct conditional { using type = T; };
+template<typename T, typename F> struct conditional<false, T, F> { using type = F; };
+
+template<typename T> struct is_char_ptr { static constexpr bool value = false; };
+template<> struct is_char_ptr<char*> { static constexpr bool value = true; };
+template<> struct is_char_ptr<const char*> { static constexpr bool value = true; };
+
+template<typename T>
+struct decay_helper {
+    using U = typename remove_ref<T>::type;
+    
+    using Decayed = typename conditional<
+        is_array<U>::value,
+        typename remove_extent<U>::type*,
+        typename remove_cv<U>::type
+    >::type;
+
+    using type = typename conditional<
+        is_char_ptr<Decayed>::value,
+        std::string, 
+        Decayed
+    >::type;
+};
+
+template<typename T>
+using decay_t = typename decay_helper<T>::type;
 
 class type_info {
 private:

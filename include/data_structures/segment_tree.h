@@ -1,17 +1,16 @@
 #pragma once
 
-#include <algorithm>
-#include <functional>
 #include <iterator>
-#include <vector>
 
 namespace algolib {
 
-template<class T>
-class segment_tree {
-public:
-    using MergeFunc = std::function<T(const T&, const T&)>;
+template<typename T>
+struct plus {
+    T operator()(const T& a, const T& b) const { return a + b; }
+};
 
+template<class T, class MergeFunc = plus<T>>
+class segment_tree {
 private:
     T* tree;
     int n;
@@ -78,14 +77,14 @@ public:
         
         if (n > 0) {
             tree = new T[4 * n];
-            std::fill(tree, tree + (4 * n), identity);
+            for (int i = 0; i < 4 * n; ++i) tree[i] = identity;
         } else {
             tree = nullptr;
         }
     }
 
     ~segment_tree() {
-        delete[] tree;
+        if(tree) delete[] tree;
     }
 
     segment_tree(const segment_tree&) = delete;

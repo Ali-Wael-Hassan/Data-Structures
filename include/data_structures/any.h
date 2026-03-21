@@ -1,5 +1,6 @@
 #pragma once
 #include "type.h"
+#include <utility>
 
 namespace algolib {
 
@@ -16,7 +17,7 @@ public:
     // constructor to initialize with a value
     template<typename T, typename U = decay_t<T>>
     any(T&& value) {
-        set<U>(static_cast<T&&>(value));
+        set<U>(std::forward<T>(value));
     }
 
     // destructor
@@ -54,7 +55,7 @@ public:
     template<typename T, typename U = decay_t<T>>
     void set(T&& value) {
         reset();
-        U* ptr = new U(static_cast<T&&>(value));
+        U* ptr = new U(std::forward<T>(value));
         data = ptr;
         type = type_id<U>();
         deleter = [](void* p){ delete static_cast<U*>(p); };
