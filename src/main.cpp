@@ -9,7 +9,7 @@ int main() {
     l.push_back("zalata");
     l.push_back(17);
     l.push_back(type({4, 2006}));
-    l.pop_back();
     std::cout << l[0] << ' ' << l[1] << ' '
-        << l.size();
+        << l[2] << ' ' << l[2].as<type>()[0]
+        << ' ' << l[2].as<type>()[1] << '\n';
 }

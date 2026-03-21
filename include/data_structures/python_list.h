@@ -108,9 +108,13 @@ public:
         return object(lhs + rhs.as<std::string>());
     }
 
-    // get type_info
     type_info type() const noexcept { 
         return data.has_value() ? data.get_type() : type_info(); 
+    }
+
+    template<typename T>
+    bool is() const noexcept { 
+        return data.has_value() ? data.is<T>() : false; 
     }
 
     bool is_empty() const noexcept { return !data.has_value(); }
@@ -128,6 +132,28 @@ public:
         const T* ptr = data.try_get<T>();
         if (!ptr) throw std::bad_cast();
         return *ptr;
+    }
+
+    template<typename T>
+    T* as_ptr() noexcept {
+        T* ptr = data.try_get<T>();
+        return ptr;
+    }
+
+    template<typename T>
+    const T* as_ptr() const noexcept {
+        const T* ptr = data.try_get<T>();
+        return ptr;
+    }
+
+    template<typename T>
+    operator T*() noexcept {
+        return as_ptr<T>();
+    }
+
+    template<typename T>
+    operator const T*() const noexcept {
+        return as_ptr<T>();
     }
 
     template<typename T>
